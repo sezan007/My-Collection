@@ -1,2 +1,23 @@
 <h1>Hello World</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Last Sign In At</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.last_sign_in_at %></td>
+        <td><%= user.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
