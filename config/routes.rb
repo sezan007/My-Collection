@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   get 'pages/users'
   get 'pages/admins'
+  # config/routes.rb
+  post 'toggle_theme', to: 'pages#toggle_theme'
+
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,5 +1,10 @@
 <!-- app/views/shared/_bootstrap_table.html.erb -->
-<table class="table table-dark">
+<% theme_class = current_user&.light_theme ? 'table-light' : 'table-dark' %>
+
+<%= button_to "Toggle Theme", toggle_theme_path, method: :post, remote: true %>
+
+
+<table class="table <%= theme_class %>">
   <thead>
     <tr>
       <th>Name</th>
