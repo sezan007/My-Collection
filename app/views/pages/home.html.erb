@@ -8,6 +8,8 @@
         
         <% @users.each do |user| %>
         <tr>
+        <th scope="row"><%= check_box_tag "user_ids[]", user.id, nil, { multiple: true, form: :bulk_actions_form, data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent"} } %>
+ <%= check_box_tag "user_ids[]", user.id, nil, { multiple: true, form: :bulk_delete_form, data: { checkbox_select_all_target: "child01", action: "change->checkbox-select-all#toggleParent"} } %></th>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td><%= user.last_sign_in_at%></td>

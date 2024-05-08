@@ -4,9 +4,48 @@
 <%= button_to "Toggle Theme", toggle_theme_path, method: :post, remote: true %>
 
 
-<table class="table <%= theme_class %>">
+
+<div class="d-flex justify-content-space-evenly">
+  <%= form_with url: bulk_update_users_path, method: :patch, id: :bulk_actions_form do |form| %>
+    <%= form.button type: :submit, name: "commit", value: "active", class: "btn btn-success .active", "data-disable-with": "active" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-unlock " viewBox="0 0 16 16">
+        <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2M3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z"/>
+      </svg>
+      Active
+    <% end %>
+
+    <%= form.button type: :submit, name: "commit", value: "Blocked", class: "btn btn-warning block", "data-disable-with": "Block" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+      </svg>
+      Block
+    <% end %>
+  <% end %>
+
+  <div class="d-flex flex-column justify-content-between">
+    <%= form_with url: bulk_delete_users_path, method: :DELETE, id: :bulk_delete_form do |form| %>
+      <%= form.button type: :submit, name: "commit", value: "Delete", class: "btn btn-danger delete", "data-disable-with": "Delete" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+        </svg>
+        Delete
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+</br>
+
+
+
+
+
+<div data-controller="checkbox-select-all">
+
+<table class="table <%= theme_class %> table-striped table-hover table-bordered">
   <thead>
     <tr>
+    <th scope="col"><%= check_box_tag "select all", nil, nil, { data: { checkbox_select_all_target: "parent", action: "change->checkbox-select-all#toggleChildren"} } %></th>
       <th>Name</th>
       <th>Email</th>
       <th>Last Sign In At</th>
@@ -19,3 +58,4 @@
     <%= yield %>
   </tbody>
 </table>
+</div>

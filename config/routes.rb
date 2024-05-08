@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+  resources :users do
+    collection do
+      patch :bulk_update
+      delete :bulk_delete
+    end
+  end
   get 'pages/users'
   get 'pages/admins'
   # config/routes.rb

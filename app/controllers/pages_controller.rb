@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
   def home
-    @users = User.all # Assuming User is your model representing users
+    @users = User.order(:id) # Assuming User is your model representing users
   end
   def users
   end
