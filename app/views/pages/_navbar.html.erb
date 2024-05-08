@@ -15,7 +15,10 @@
 
             <li class="nav-item">
                 <%=link_to "Sign In", user_session_path, class: "nav-link"  %>
-                </li>
+            </li>
+
+
+
   
         <% else %>
             
@@ -24,7 +27,12 @@
             </li>   
             <li class="nav-item">
             <%=link_to "All User", pages_users_path, class: "nav-link"  %> 
-        </li>      
+        </li>
+          <%if current_user.admin? %>
+              <li class="nav-item">
+              <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 
+              </li>    
+              <%end%>  
         
         <%end%>
     

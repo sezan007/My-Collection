@@ -1,30 +1,5 @@
 <h1>Hello World</h1>
+
+
 <p>Find me in app/views/pages/home.html.erb</p>
-
-
-<%if current_user %>
-    <% if @users.present? %>
-    <%= render 'shared/bootstrap_table' do %>
-        
-        <% @users.each do |user| %>
-        <tr>
-        <th scope="row"><%= check_box_tag "user_ids[]", user.id, nil, { multiple: true, form: :bulk_actions_form, data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent"} } %>
- <%= check_box_tag "user_ids[]", user.id, nil, { multiple: true, form: :bulk_delete_form, data: { checkbox_select_all_target: "child01", action: "change->checkbox-select-all#toggleParent"} } %></th>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-            <td><%= user.last_sign_in_at%></td>
-            <td><%= user.status %></td>
-            <td><%= user.role %></td>
-            <td><%= user.light_theme %></td>
-        </tr>
-        <% end %>
-    <% end %>
-    <% else %>
-    <p>No users found.</p>
-    <% end %>
-    <%else %>
-            <p> NOt authenticated</p>
-            <%= link_to "Sign_Up",new_user_registration_path%>
-            <%= link_to "Login", new_user_session_path%>
-<% end %>
 

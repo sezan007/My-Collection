@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admins/admin'
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
