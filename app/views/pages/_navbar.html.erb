@@ -1,4 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<%if user_signed_in?%>
+  <% theme_class = current_user&.light_theme ? 'light' : 'dark' %>
+<%else%>
+  <% theme_class = 'light' %>
+<%end%>
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-<%=theme_class%> bg-<%=theme_class%>">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">User Manager</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +33,17 @@
   
         <% else %>
             
+            
             <li class="nav-item">
             <%=link_to "Edit User", edit_user_registration_path, class: "nav-link"  %> 
             </li>   
             <li class="nav-item">
             <%=link_to "All User", pages_users_path, class: "nav-link"  %> 
         </li>
+        <li class="nav-item">
+        <%= link_to "Toggle Theme", toggle_theme_path, method: :post, remote: true, class: "nav-link"  %>
+
+    </li>
           <%if current_user.admin? %>
               <li class="nav-item">
               <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 

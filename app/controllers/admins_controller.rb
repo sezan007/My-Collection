@@ -4,7 +4,6 @@ class AdminsController < ApplicationController
 
   def require_user
     if current_user.admin?
-      flash[:notice] = "You are admin."
     else
       redirect_to root_path, notice: "You are Not admin."
     end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'pages/admins'
   # config/routes.rb
   post 'toggle_theme', to: 'pages#toggle_theme'
+  get 'toggle_theme', to: 'pages#toggle_theme'
 
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
