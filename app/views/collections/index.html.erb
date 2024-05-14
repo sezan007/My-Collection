@@ -1,0 +1,16 @@
+<h1 class="mb-4">My Collections</h1>
+
+<% @collections.each do |collection| %>
+  <div class="card mb-4">
+  <div class="card-header">
+  <h2 class="card-title"><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2>
+  
+</div>
+    <div class="card-body">
+      
+      <p class="card-text"><%= collection.description %></p>
+    </div>
+  </div>
+<% end %>
+
+<p class="mt-4">Find me in app/views/collections/index.html.erb</p>

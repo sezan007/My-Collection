@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <%=link_to "Sign Up", new_user_registration_path, class: "nav-link"  %>
                 
-
+            </li>
             <li class="nav-item">
                 <%=link_to "Sign In", user_session_path, class: "nav-link"  %>
             </li>
@@ -39,16 +39,18 @@
             </li>   
             <li class="nav-item">
             <%=link_to "All User", pages_users_path, class: "nav-link"  %> 
-        </li>
-        <li class="nav-item">
-        <%= link_to "Toggle Theme", toggle_theme_path, method: :post, remote: true, class: "nav-link"  %>
-
-    </li>
-          <%if current_user.admin? %>
-              <li class="nav-item">
-              <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 
-              </li>    
-              <%end%>  
+            </li>
+            <li class="nav-item">
+            <%= link_to "Toggle Theme", toggle_theme_path, method: :post, remote: true, class: "nav-link"  %>
+            </li>
+            <li class="nav-item">
+            <%=link_to "New Collection",new_collection_path, class: "nav-link"  %>
+            </li>
+            <%if current_user.admin? %>
+                <li class="nav-item">
+                <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 
+                </li>    
+            <%end%>  
         
         <%end%>
     

@@ -1,0 +1,8 @@
+<h1>Collections#show</h1>
+<%= link_to "Edit", edit_collection_path(@collection) if user_signed_in? %>
+<h1>
+    <%=@collection.name%>
+</h1>
+<%=@collection.description%>
+
+<p>Find me in app/views/collections/show.html.erb</p>

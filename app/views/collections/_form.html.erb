@@ -1,0 +1,28 @@
+<%= form_with(model: collection) do |form| %>
+  <% if collection.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+
+      <ul>
+        <% collection.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <%else %>
+  <div>
+        <ul>
+          <%=form.label :name%>
+          <%=form.text_field :name%>
+        </ul>
+        <ul>
+        <%=form.label :description%>
+        <%=form.rich_text_area :description%>
+        </ul>    
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
