@@ -14,6 +14,9 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
+gem "aws-sdk-s3", require: false
+
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
@@ -53,6 +56,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
 
+
+
+
 gem "ruby-vips"
 
 group :development do
@@ -73,3 +79,4 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
