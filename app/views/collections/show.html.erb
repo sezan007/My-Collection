@@ -1,8 +1,44 @@
 <h1>Collections#show</h1>
 <%= link_to "Edit", edit_collection_path(@collection) if user_signed_in? %>
-<h1>
-    <%=@collection.name%>
-</h1>
-<%=@collection.description%>
+
 
 <p>Find me in app/views/collections/show.html.erb</p>
+<h1><%= @collection.name %></h1>
+<p><%= @collection.description %></p>
+
+<h2>Items</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Tags</th>
+      <% @collection.fields.each do |field| %>
+        <% if %w[string date integer boolean].include?(field.field_type) %>
+          <th><%= field.name %></th>
+        <% end %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+
+  
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        
+        <td><%= item.tags %></td>
+        <% @collection.fields.each do |field| %>
+          <% if %w[string date integer boolean].include?(field.field_type) %>
+          <% value=item.item_values.find { |iv| iv.field_id == field.id }&.value %>
+            <% if field.field_type=="boolean"%>
+                
+                <td><%= value=="1"? "true" : "false" %></td>
+            <%else%>
+                <td>value</td>
+            <%end%>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

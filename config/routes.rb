@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  
+  get 'items/show'
+  get 'items/new'
+  get 'items/edit'
   get 'collections/index'
   get 'collections/show'
   get 'admins/admin'
@@ -21,6 +26,9 @@ Rails.application.routes.draw do
   # get 'collections/new', to: 'collections#new'
   # get 'collections/:id', to: 'collections#show', as: :collection
   patch 'collections/:id', to: 'collections#update'
+  resources :collections do
+    resources :items
+  end
 
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
