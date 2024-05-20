@@ -4,20 +4,29 @@ class CollectionsController < ApplicationController
 
   def index
     @collections=Collection.all
+
   end
 
   def show
+    @collection = Collection.find(params[:id])
+    @items = @collection.items.includes(:item_values)
+
+    #  binding.b
   
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path
   end
   def new
     @collection = Collection.new
+    @collection.fields.build
+    # 3.times{@collection.fields.build}
+
   end
   def create
   
     @collection=Collection.new(collection_params)
     if @collection.save
+      # binding.b
       redirect_to @collection
     else
       render :new, status: :unprocessable_entity
@@ -53,7 +62,7 @@ class CollectionsController < ApplicationController
 
   private
   def collection_params
-    params.require(:collection).permit(:name,:description)
+    params.require(:collection).permit(:name,:description,fields_attributes: [:name,:field_type])
   end
   def set_collection
     @collection=Collection.find(params[:id])
