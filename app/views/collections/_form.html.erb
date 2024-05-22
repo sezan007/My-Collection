@@ -1,33 +1,50 @@
 <%= form_with(model: @collection, local: true) do |form| %>
- 
-  <% if collection.errors.any? %>
+  <% if @collection.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
-
+      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
       <ul>
-        <% collection.errors.each do |error| %>
+        <% @collection.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
-  <%else %>
-  <div>
-        <ul>
-          <%=form.label :name%>
-          <%=form.text_field :name%>
-        </ul>
-        <ul>
-        <%=form.label :description%>
-        <%=form.rich_text_area :description%>
-        </ul>
- 
-        <h3>Custom Fields</h3>
-         <%=form.fields_for :fields do |ff|%>
-            <%= ff.text_field :name%>
-            <%=ff.select :field_type,Field::FIELD_TYPES.map {|type| [type.humanize,type]}%>
-          <%end%>
-    </div>
   <% end %>
+
+  <div>
+    <ul>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </ul>
+    <ul>
+      <%= form.label :description %>
+      <%= form.rich_text_area :description %>
+    </ul>
+
+    <!-- Render fields for existing custom fields -->
+    <div id="existing_fields">
+      <%= form.fields_for :fields do |field_form| %>
+        <%= render 'field_fields', form: field_form %>
+      <% end %>
+    </div>
+
+    <!-- New custom fields will be appended here -->
+    <div id="new_fields">
+    </div>
+
+    <!-- Template for new fields -->
+    <template id="field_template">
+      <%= form.fields_for :fields, Field.new, child_index: 'NEW_RECORD' do |field_form| %>
+        <div class="nested-fields">
+          <%= render 'field_fields', form: field_form %>
+          <%= field_form.hidden_field :_destroy %>
+          <button type="button" class="remove-field">Remove</button>
+        </div>
+      <% end %>
+    </template>
+
+    <!-- Button to add new fields -->
+    <a id="add-field" class="btn btn-primary" href="#">Add Custom Field</a>
+  </div>
 
   <div>
     <%= form.submit %>
