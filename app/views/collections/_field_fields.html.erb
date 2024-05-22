@@ -1,0 +1,7 @@
+<div class="field">
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :field_type %>
+  <%=form.select :field_type,Field::FIELD_TYPES.map {|type| [type.humanize,type]}%>
+</div>
