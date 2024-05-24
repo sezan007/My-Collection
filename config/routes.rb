@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch 'collections/:id', to: 'collections#update'
   resources :collections do
     resources :items
+    resources :fields, only: [:destroy]
   end
 
   # get 'pages/home'
