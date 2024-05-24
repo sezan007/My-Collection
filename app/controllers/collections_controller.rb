@@ -27,6 +27,7 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    # binding.b
     if @collection.update(collection_params)
       redirect_to @collection
     else

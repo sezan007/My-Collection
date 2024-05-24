@@ -24,6 +24,7 @@
     <div id="existing_fields">
       <%= form.fields_for :fields do |field_form| %>
         <%= render 'field_fields', form: field_form %>
+        <%= field_form.check_box :_destroy %> Remove
       <% end %>
     </div>
 
