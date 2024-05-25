@@ -17,6 +17,8 @@
           <th><%= field.name %></th>
         <% end %>
       <% end %>
+      <th> Delete </th>
+      <th> Update </th>
     </tr>
   </thead>
   <tbody>
@@ -37,8 +39,16 @@
                 <td><%=value%></td>
             <%end%>
           <% end %>
+          
         <% end %>
+        <td>
+        <%= button_to "Delete", collection_item_path(@collection, item), method: :delete, data: { confirm: "Are you sure you want to delete this item?" }, class: "btn btn-danger" %>
+        </td>
+        <td><%= link_to "Edit", edit_collection_item_path(@collection, item) %></td>
+        
       </tr>
     <% end %>
   </tbody>
+  
 </table>
+<%= link_to 'add item', new_collection_item_path(@collection), class: 'btn btn-primary' %>

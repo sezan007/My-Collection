@@ -1,7 +1,12 @@
 class ItemsController < ApplicationController
   def show
+    
   end
-
+  def edit
+    # binding.b
+    @collection=Collection.find(params[:collection_id])
+    @item = @collection.items.find(params[:id])
+  end
   def create
     
     @collection=Collection.find(params[:collection_id])
@@ -35,12 +40,39 @@ class ItemsController < ApplicationController
       @item.item_values.build()
     end
   end
+  def destroy
+    @collection=Collection.find(params[:collection_id])
+    @item = @collection.items.find(params[:id])
+    @item.destroy
+    redirect_to collection_path(@collection),notice: "Item Deleted  !"
+    
+  end
 
-  def edit
+  def update
+    @collection=Collection.find(params[:collection_id])
+    @item = @collection.items.find(params[:id])
+    # Rails.logger.debug "Parameters: #{params.inspect}"
+    # binding.b
+    Rails.logger.debug "Parameters: #{params.inspect}"
+    if @item.update(item_params)
+      tags_input = params[:item][:tags][0].to_s
+      tags_array = tags_input.split(',').map(&:strip)
+      # binding.b
+      @item.tags = tags_array
+      if @item.save
+        redirect_to collection_path(@collection.id), notice: 'Item was successfully updated.'
+      else
+        render :edit, notice: 'Tag was not saved updated.'
+      end
+      
+    else
+      render :edit, notice: 'something went wrong'
+    end
+    # binding.b
   end
   # private
   def item_params
-    params.require(:item).permit(:name, tags: [] ,item_values_attributes: [:field_id, :value])
+    params.require(:item).permit(:name, tags: [],item_values_attributes: [:id,:field_id,:value] )
     # params.require(:item).permit(:name, :tags, item_values_attributes: [:field_id, :value])
   end
 end

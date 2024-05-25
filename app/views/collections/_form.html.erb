@@ -20,7 +20,7 @@
       <%= form.rich_text_area :description %>
     </ul>
 
-    <!-- Render fields for existing custom fields -->
+    
     <div id="existing_fields">
       <%= form.fields_for :fields do |field_form| %>
         <%= render 'field_fields', form: field_form %>
@@ -28,11 +28,11 @@
       <% end %>
     </div>
 
-    <!-- New custom fields will be appended here -->
+   
     <div id="new_fields">
     </div>
 
-    <!-- Template for new fields -->
+   
     <template id="field_template">
       <%= form.fields_for :fields, Field.new, child_index: 'NEW_RECORD' do |field_form| %>
         <div class="nested-fields">
@@ -43,7 +43,6 @@
       <% end %>
     </template>
 
-    <!-- Button to add new fields -->
     <a id="add-field" class="btn btn-primary" href="#">Add Custom Field</a>
   </div>
 
