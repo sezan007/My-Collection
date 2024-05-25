@@ -1,2 +1,25 @@
-<h1>Items#edit</h1>
-<p>Find me in app/views/items/edit.html.erb</p>
+<%= form_with(model: [@collection, @item], local: true) do |form| %>
+    <%= form.text_field :name %>
+    <%= form.text_field :tags, multiple: true %>
+  
+    <% @collection.fields.each do |field| %>
+      <%= form.fields_for :item_values, @item.item_values.find_or_initialize_by(field_id: field.id ) do |ff| %>
+        <%= ff.hidden_field :field_id, value: field.id %>
+        <% case field.field_type %>
+        <% when 'string' %>
+          <%= ff.text_field :value %>
+        <% when 'text' %>
+          <%= ff.text_area :value %>
+        <% when 'integer' %>
+          <%= ff.number_field :value %>
+        <% when 'boolean' %>
+          <%= ff.check_box :value %>
+        <% when 'date' %>
+          <%= ff.date_field :value %>
+        <% end %>
+      <% end %>
+    <% end %>
+  
+    <%= form.submit %>
+  <% end %>
+  

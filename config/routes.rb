@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  
-  get 'items/show'
-  get 'items/new'
-  get 'items/edit'
   get 'collections/index'
   get 'collections/show'
   get 'admins/admin'
@@ -30,7 +26,6 @@ Rails.application.routes.draw do
     resources :items
     resources :fields, only: [:destroy]
   end
-
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
