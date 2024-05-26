@@ -2,6 +2,8 @@ class Item<ApplicationRecord
     belongs_to :collection
     has_many :item_values, dependent: :destroy
     has_many :fields, through: :item_values
+    has_many :likes, dependent: :destroy
+    has_many :liked_by_user, through: :likes,source: :user
     accepts_nested_attributes_for :item_values, allow_destroy: true
     validates :name,presence:true
     validate :tags_array_non_empty

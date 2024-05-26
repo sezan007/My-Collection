@@ -23,9 +23,12 @@ Rails.application.routes.draw do
   # get 'collections/:id', to: 'collections#show', as: :collection
   patch 'collections/:id', to: 'collections#update'
   resources :collections do
-    resources :items
+    resources :items do
+      resource :likes, only: [:create,:destroy]
+    end
     resources :fields, only: [:destroy]
   end
+  
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
