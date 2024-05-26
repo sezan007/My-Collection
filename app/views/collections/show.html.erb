@@ -26,7 +26,7 @@
   
     <% @items.each do |item| %>
       <tr>
-        <td><%= item.name %></td>
+        <td><%= link_to item.name,collection_item_path(@collection.id,item.id) %></td>
         
         <td><%= item.tags %></td>
         <% @collection.fields.each do |field| %>

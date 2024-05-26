@@ -1,6 +1,9 @@
 class ItemsController < ApplicationController
   def show
-    
+    @collection=Collection.find(params[:collection_id])
+    # @item = @collection.items.find(params[:id])
+    @item=@collection.items.find(params[:id])
+    # binding.b
   end
   def edit
     # binding.b

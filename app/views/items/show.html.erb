@@ -1,2 +1,29 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<h1>Item Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Tags</th>
+      <% @collection.fields.each do |field| %>
+        <th> <%= field.name %> </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><h5><%= @item.name %></h5></td>
+      <td><h5><%= @item.tags %></h5></td>
+      <% @collection.fields.each do |field| %>
+        <% if %w[string date integer boolean].include?(field.field_type) %>
+            <% value=@item.item_values.find { |iv| iv.field_id == field.id }&.value %>
+            <% if field.field_type=="boolean"%>
+                <td><%= value=="1"? "true" : "false" %></td>
+            <%else%>
+                <td><%=value%></td>
+            <%end%>
+        <%end%>
+      <%end%>
+    </tr>
+  </tbody>
+</table>
