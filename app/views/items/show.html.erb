@@ -3,8 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Tags</th>
+      <th><h2>Name</h2></th>
+      <th><h2>Tags</h2></th>
       <% @collection.fields.each do |field| %>
         <th> <%= field.name %> </th>
       <% end %>
@@ -24,8 +24,30 @@
             <%end%>
         <%end%>
       <%end%>
-      <td><%= button_to 'Like', collection_item_likes_path(@collection, @item) %></td>
-      <td><%= button_to 'Unlike',collection_item_likes_path(@collection,@item),method: :delete %></td>
+      <% if user_signed_in? %>
+        <td><%= button_to 'Like', collection_item_likes_path(@collection, @item) %></td>
+        <td><%= button_to 'Unlike',collection_item_likes_path(@collection,@item),method: :delete %></td>
+      <%end%>
     </tr>
+    <tr>
+        <td>
+          <h3>Comments</h3>
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+          <div id ="comments">
+            <%= render @item.comments%>
+          </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <%if user_signed_in?%>
+          <%= render partial: 'comments/form',locals: { collection:@collection,item:@item }%>
+        <%end%>
+    </td>
+  </tr>
   </tbody>
 </table>

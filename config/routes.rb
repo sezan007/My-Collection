@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :collections do
     resources :items do
       resource :likes, only: [:create,:destroy]
+      resources :comments,only: [:create, :destroy,:edit,:update]
     end
     resources :fields, only: [:destroy]
   end

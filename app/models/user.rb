@@ -10,6 +10,7 @@ class User < ApplicationRecord
     end
     has_many :likes, dependent: :destroy
     has_many :liked_items ,through: :likes,source: :item
+    has_many :comments
 
 
 
