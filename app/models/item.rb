@@ -8,7 +8,6 @@ class Item<ApplicationRecord
     accepts_nested_attributes_for :item_values, allow_destroy: true
     validates :name,presence:true
     validate :tags_array_non_empty
-    
 
     private
   

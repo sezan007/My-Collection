@@ -1,5 +1,5 @@
 <h1>Item Details</h1>
-<p>HI <%=current_user.name%></p>
+<span id="like_counts"><%= @item.likes.count%> Likes</span>
 <table>
   <thead>
     <tr>
@@ -25,8 +25,12 @@
         <%end%>
       <%end%>
       <% if user_signed_in? %>
-        <td><%= button_to 'Like', collection_item_likes_path(@collection, @item) %></td>
-        <td><%= button_to 'Unlike',collection_item_likes_path(@collection,@item),method: :delete %></td>
+        <% if current_user.likes.exists?(item: @item) %>
+          <td><%= button_to 'Unlike',collection_item_likes_path(@collection,@item),method: :delete %></td>
+        <%else%>
+          <td><%= button_to 'Like', collection_item_likes_path(@collection, @item) %></td>
+          <%end%>
+        
       <%end%>
     </tr>
     <tr>
