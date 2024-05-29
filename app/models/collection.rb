@@ -5,4 +5,5 @@ class Collection < ApplicationRecord
     validates :description, presence:true
     has_rich_text :description
     accepts_nested_attributes_for :fields, allow_destroy: true
+    # broadcasts_to ->(collection)  { :mycomment_list }
 end

@@ -1,5 +1,5 @@
 <h1>Item Details</h1>
-
+<p>HI <%=current_user.name%></p>
 <table>
   <thead>
     <tr>
@@ -37,8 +37,16 @@
     </tr>
     <tr>
         <td>
+        <%= turbo_stream_from :mycomment_list%>
           <div id ="comments">
-            <%= render @item.comments%>
+          
+
+          <% @item.comments.each do |comment|%>
+            <%= render partial: "comments/comment", locals: { comment: comment } %>
+            <%= button_to 'delete' ,collection_item_comment_path(comment.item.collection,comment.item,comment),method: :delete if comment.user==current_user%>
+            <%= link_to 'edit',edit_collection_item_comment_path(comment.item.collection,comment.item,comment) if comment.user==current_user%>
+          <%end%>
+            
           </div>
         </td>
     </tr>

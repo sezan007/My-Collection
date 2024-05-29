@@ -1,6 +1,5 @@
-<div class="comment">
+<div id="<%= dom_id comment%>">
 <p><strong><%=comment.user.name%>:</strong> <%=comment.content%> 
-    <%= button_to 'delete' ,collection_item_comment_path(comment.item.collection,comment.item,comment),method: :delete if comment.user==current_user%>
-    <%= link_to 'edit',edit_collection_item_comment_path(comment.item.collection,comment.item,comment) if comment.user==current_user%>
+    
 </p>
 </div>
