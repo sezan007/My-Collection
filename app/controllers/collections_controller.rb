@@ -18,7 +18,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
-    @collection = Collection.new(collection_params)
+    @collection = current_user.collections.build(collection_params)
     if @collection.save
       redirect_to @collection
     else
@@ -46,7 +46,7 @@ class CollectionsController < ApplicationController
   private
 
   def collection_params
-    params.require(:collection).permit(:name, :description, fields_attributes: [:id, :name, :field_type, :_destroy])
+    params.require(:collection).permit(:name, :description,:category, fields_attributes: [:id, :name, :field_type, :_destroy])
   end
 
   def set_collection

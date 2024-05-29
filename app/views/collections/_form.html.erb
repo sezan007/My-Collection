@@ -16,6 +16,11 @@
       <%= form.text_field :name %>
     </ul>
     <ul>
+    <%= form.label :category %>
+    <%=form.select :category,Collection::VALID_CATEGORIES.map {|type| [type.humanize,type]}%>
+    </ul>
+    
+    <ul>
       <%= form.label :description %>
       <%= form.rich_text_area :description %>
     </ul>

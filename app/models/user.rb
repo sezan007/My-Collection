@@ -8,11 +8,9 @@ class User < ApplicationRecord
     def set_default_role
         self.role ||= :user
     end
+    has_many :collections,dependent: :destroy
     has_many :likes, dependent: :destroy
     has_many :liked_items ,through: :likes,source: :item
     has_many :comments
-
-
-
   end
   
