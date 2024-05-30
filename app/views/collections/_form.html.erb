@@ -1,3 +1,4 @@
+<%= javascript_include_tag "add_field" %>
 <%= form_with(model: @collection, local: true) do |form| %>
   <% if @collection.errors.any? %>
     <div style="color: red">
