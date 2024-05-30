@@ -12,6 +12,7 @@
 
     <%= javascript_include_tag "trix" %>
     <%= javascript_include_tag "actiontext" %>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "add_field" , 'data-turbolinks-track': 'reload'%>
     <%= javascript_importmap_tags %>
@@ -20,6 +21,12 @@
 
     <!-- Include Bootstrap JavaScript if needed -->
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+   
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "add_field" %>
+
+
   </head>
   <body>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
