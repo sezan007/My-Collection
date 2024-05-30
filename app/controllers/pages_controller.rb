@@ -1,8 +1,9 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   # current_user.admin?
   def home
-    @users = User.order(:id) # Assuming User is your model representing users
+    @latest_items = Item.order(created_at: :desc).limit(5)
+    @top_collections = Collection.includes(:items).sort_by{ |collection| collection.items.count}.reverse.first(5)
   end
   def users
   end

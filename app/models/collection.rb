@@ -18,5 +18,6 @@ class Collection < ApplicationRecord
   
     
     validates :category, inclusion: { in: VALID_CATEGORIES }
+
     validates :category, uniqueness: { scope: :user_id, message: "You can only create one collection per category." }
 end

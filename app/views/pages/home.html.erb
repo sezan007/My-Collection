@@ -1,5 +1,19 @@
-<h1>Hello World</h1>
+<h1>Dashboard</h1>
 
 
-<p>Find me in app/views/pages/home.html.erb</p>
 
+<h2>Latest Items</h2>
+<ul>
+  <% @latest_items.each do |item| %>
+    <li><%= link_to item.name,collection_item_path(item.collection.id,item.id) %> - <%= item.collection.name %> - <%= item.collection.user.name%></li>
+  <% end %>
+</ul>
+
+<h2>Top Collections</h2>
+<ul>
+  <% @top_collections.each do |collection| %>
+    <div class="card-header">
+    <li><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2> - <%=collection.user.name%></li>
+    </div?
+  <% end %>
+</ul>
