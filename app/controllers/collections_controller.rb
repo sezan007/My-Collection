@@ -15,11 +15,32 @@ class CollectionsController < ApplicationController
 
   def new
     @collection = Collection.new
+
+    3.times do 
+      @field=@collection.fields.build
+      @field.field_type="int"
+    end
+    3.times do 
+      @field=@collection.fields.build
+      @field.field_type="string"
+    end
+    3.times do 
+      @field=@collection.fields.build
+      @field.field_type="date"
+    end
+
+
+    
   end
 
   def create
     @collection = current_user.collections.build(collection_params)
-    if @collection.save
+    if current_user.collections.exists?(category: @collection.category)
+      # binding.b
+      respond_to do|format| 
+        format.html{ redirect_to new_collection_path,notice: "duplicate category not valid"}
+      end
+    elsif @collection.save
       redirect_to @collection
     else
       render :new, status: :unprocessable_entity

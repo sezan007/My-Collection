@@ -25,16 +25,21 @@
       <%= form.label :description %>
       <%= form.rich_text_area :description %>
     </ul>
-
-    
-    <div id="existing_fields">
-      <%= form.fields_for :fields do |field_form| %>
-        <%= render 'field_fields', form: field_form %>
-        <%= field_form.check_box :_destroy %> Remove
+    <table class='table'>
+    <thead>
+      <tr>
+        <th>User id: <%=current_user.id%></th>
+        <th>Custom Field Name</th>
+        <th>Custom Field Type</th>
+      </tr>
+    </thead>
+    <tbody class='fields'>
+      <%= form.fields_for :fields do |builder| %>
+        <%= render 'field_fields', form: builder %>
       <% end %>
-    </div>
-
-   
+    </tbody>
+  </table>
+  
     <div id="new_fields">
     </div>
 
