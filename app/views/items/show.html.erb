@@ -1,4 +1,5 @@
 <h1>Item Details</h1>
+<%= javascript_importmap_tags %>
 <span id="like_counts"><%= @item.likes.count%> Likes</span>
 <table>
   <thead>
@@ -42,9 +43,11 @@
     <tr>
         <td>
         <%= turbo_stream_from :mycomment_list%>
+        
           <div id ="comments">
           
 
+          
           <% @item.comments.each do |comment|%>
             <%= render partial: "comments/comment", locals: { comment: comment } %>
             <%= button_to 'delete' ,collection_item_comment_path(comment.item.collection,comment.item,comment),method: :delete if comment.user==current_user%>

@@ -13,13 +13,13 @@
 
     <%= javascript_include_tag "trix" %>
     <%= javascript_include_tag "actiontext" %>
-    <%= javascript_include_tag "add_field" %> <!-- Updated to include the correct path -->
+    <%= javascript_include_tag "add_field" %>
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_importmap_tags %>
   </head>
   <body>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>Holy guacamole!</strong>  <%= notice %>
+      <strong><%= notice %></strong>  
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <%= render 'pages/navbar' %>
