@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!,only: [:show]
   def show
     @collection=Collection.find(params[:collection_id])
     # @item = @collection.items.find(params[:id])
     @item=@collection.items.find(params[:id])
     # binding.b
-    @toggle_theme = current_user.light_theme
+    # @toggle_theme = current_user.light_theme
   end
   def edit
     # binding.b

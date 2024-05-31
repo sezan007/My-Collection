@@ -18,7 +18,7 @@
     </div>
     <div class="table-responsive">
       <table class="table <%= current_user.light_theme ? 'table-dark' : 'table-light' %>">
-        <thead>
+        <thead >
           <tr>
             <% @collection.fields.each do |field| %>
               <th><%= field.name %></th>
@@ -30,7 +30,8 @@
             <% @collection.fields.each do |field| %>
               <% if %w[string date integer boolean].include?(field.field_type) %>
                 <% value = @item.item_values.find { |iv| iv.field_id == field.id }&.value %>
-                <td><%= field.field_type == "boolean" ? (value == "1" ? "true" : "false") : value %></td>
+                <td >
+                <%= field.field_type == "boolean" ? (value == "1" ? "true" : "false") : value %></td>
               <% end %>
             <% end %>
           </tr>

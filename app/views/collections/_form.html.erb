@@ -42,19 +42,12 @@
   
     <div id="new_fields">
     </div>
-
-   
-    <template id="field_template">
-      <%= form.fields_for :fields, Field.new, child_index: 'NEW_RECORD' do |field_form| %>
-        <div class="nested-fields">
-          <%= render 'field_fields', form: field_form %>
-          <%= field_form.hidden_field :_destroy %>
-          <button type="button" class="remove-field">Remove</button>
-        </div>
-      <% end %>
-    </template>
+    <%= turbo_stream_from :custom_field %>
+    <p>I was heh</p>
+        
+    <div id="custom_fields"></div>
   </div>
-
+  # <%=link_to "add field",new_collection_field_path(), class: "nav-link"  %>
   <div>
     <%= form.submit %>
   </div>

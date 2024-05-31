@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       resource :likes, only: [:create,:destroy]
       resources :comments,only: [:create, :destroy,:edit,:update]
     end
-    resources :fields, only: [:destroy]
+    resources :fields, only: [:destroy,:new]
   end
   
   # get 'pages/home'
