@@ -1,0 +1,14 @@
+
+
+    <% @mycollection.each do |collection| %>
+        <div class="card mb-4">
+        <div class="card-header">
+        <h2 class="card-title"><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2>
+        
+      </div>
+          <div class="card-body">
+            
+            <p class="card-text"><%= collection.description %></p>
+          </div>
+        </div>
+      <% end %>

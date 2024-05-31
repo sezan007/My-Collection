@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # config/routes.rb
   post 'toggle_theme', to: 'pages#toggle_theme'
   get 'toggle_theme', to: 'pages#toggle_theme'
+  get 'mycollection', to: 'pages#mycollection'
   # get 'collections/new', to: 'collections#new'
   # get 'collections/:id', to: 'collections#show', as: :collection
   patch 'collections/:id', to: 'collections#update'

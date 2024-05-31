@@ -17,7 +17,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-     
+        <li class="nav-item">
+        <%=link_to "Home", root_path, class: "nav-link"  %> 
+        </li>
+        <li class="nav-item">
+        <%=link_to "All Collections", collections_index_path, class: "nav-link"  %>
+        </li>
         <% if !user_signed_in? %>
 
             <li class="nav-item">
@@ -27,19 +32,18 @@
             <li class="nav-item">
                 <%=link_to "Sign In", user_session_path, class: "nav-link"  %>
             </li>
-
-
+            </li>
 
   
         <% else %>
-            
-            
+        
+            <li class="nav-item">
+            <%=link_to "My Collections", mycollection_path, class: "nav-link"  %> 
+            </li>  
             <li class="nav-item">
             <%=link_to "Edit User", edit_user_registration_path, class: "nav-link"  %> 
             </li>   
-            <li class="nav-item">
-            <%=link_to "All User", pages_users_path, class: "nav-link"  %> 
-            </li>
+
             <li class="nav-item">
             <%= link_to "Toggle Theme", toggle_theme_path, method: :post, remote: true, class: "nav-link"  %>
             </li>

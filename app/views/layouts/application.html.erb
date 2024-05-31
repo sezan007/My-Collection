@@ -25,14 +25,15 @@
    
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "add_field" %>
-
-
-  </head>
-  <body>
+    <% if notice.present? %>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong><%= notice %></strong>  
+      <%= notice %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+  <% end %>
+  </head>
+  <body>
+
     <%= render 'pages/navbar' %>
     <%= yield %>
   </body>

@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:mycollection]
   # current_user.admin?
+  def mycollection
+    @mycollection=current_user.collections
+  end
   def home
     @latest_items = Item.order(created_at: :desc).limit(5)
     @top_collections = Collection.includes(:items).sort_by{ |collection| collection.items.count}.reverse.first(5)
