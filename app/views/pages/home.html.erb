@@ -3,18 +3,22 @@
     <div class="col-md-8">
       <h1 class="text-center">Dashboard</h1>
 
-      <% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
+      <% if user_signed_in? %>
+        <% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
+      <% else %>
+        <% theme_class = 'bg-light' %>
+      <% end %>
 
-      <div class="card <%= theme_class %> mt-4">
+      <div class="card <%= theme_class  %> mt-4">
         <div class="card-header">
-          <h2 class="card-title <%= current_user.light_theme ? '' : 'text-light' %> text-center">Latest Items</h2>
+          <h2 class="card-title <%= theme_class.include?('bg-light') ? '' : 'text-light' %> text-center">Latest Items</h2>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <% @latest_items.each do |item| %>
-              <li class="list-group-item <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>">
-                <h5 class="mb-0">Item Name: <%= link_to item.name, collection_item_path(item.collection.id, item.id), class: "#{current_user.light_theme ? '' : 'text-light'}" %></h5>
-                <p class="mb-0">Collection Name: <%= link_to item.collection.name, collection_path(item.collection.id), class: "card-link #{current_user.light_theme ? '' : 'text-light'}" %></p>
+              <li class="list-group-item <%= theme_class.include?('bg-light') ? 'bg-light' : 'bg-dark text-light' %>">
+                <h5 class="mb-0">Item Name: <%= link_to item.name, collection_item_path(item.collection.id, item.id), class: "#{theme_class.include?('bg-light') ? '' : 'text-light'}" %></h5>
+                <p class="mb-0">Collection Name: <%= link_to item.collection.name, collection_path(item.collection.id), class: "card-link #{theme_class.include?('bg-light') ? '' : 'text-light'}" %></p>
                 <p class="mb-0">Owner: <%= item.collection.user.name %></p>
               </li>
             <% end %>
@@ -22,15 +26,15 @@
         </div>
       </div>
 
-      <div class="card <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %> mt-4">
+      <div class="card <%= theme_class %> mt-4">
         <div class="card-header">
-          <h2 class="card-title <%= current_user.light_theme ? '' : 'text-light' %> text-center">Top Collections</h2>
+          <h2 class="card-title <%= theme_class.include?('bg-light') ? '' : 'text-light' %> text-center">Top Collections</h2>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <% @top_collections.each do |collection| %>
-              <li class="list-group-item <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>">
-                <h5 class="mb-0">Collection Name: <%= link_to collection.name, collection_path(collection.id), class: "card-link #{current_user.light_theme ? '' : 'text-light'}" %></h5>
+              <li class="list-group-item <%= theme_class.include?('bg-light') ? 'bg-light' : 'bg-dark text-light' %>">
+                <h5 class="mb-0">Collection Name: <%= link_to collection.name, collection_path(collection.id), class: "card-link #{theme_class.include?('bg-light') ? '' : 'text-light'}" %></h5>
                 <p class="mb-0">Owner: <%= collection.user.name %></p>
               </li>
             <% end %>
