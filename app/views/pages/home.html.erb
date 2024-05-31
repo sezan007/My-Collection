@@ -1,19 +1,42 @@
-<h1>Dashboard</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center">Dashboard</h1>
 
+      <% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
 
+      <div class="card <%= theme_class %> mt-4">
+        <div class="card-header">
+          <h2 class="card-title <%= current_user.light_theme ? '' : 'text-light' %> text-center">Latest Items</h2>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <% @latest_items.each do |item| %>
+              <li class="list-group-item <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>">
+                <h5 class="mb-0">Item Name: <%= link_to item.name, collection_item_path(item.collection.id, item.id), class: "#{current_user.light_theme ? '' : 'text-light'}" %></h5>
+                <p class="mb-0">Collection Name: <%= link_to item.collection.name, collection_path(item.collection.id), class: "card-link #{current_user.light_theme ? '' : 'text-light'}" %></p>
+                <p class="mb-0">Owner: <%= item.collection.user.name %></p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-<h2>Latest Items</h2>
-<ul>
-  <% @latest_items.each do |item| %>
-    <li><%= link_to item.name,collection_item_path(item.collection.id,item.id) %> - <%= item.collection.name %> - <%= item.collection.user.name%></li>
-  <% end %>
-</ul>
-
-<h2>Top Collections</h2>
-<ul>
-  <% @top_collections.each do |collection| %>
-    <div class="card-header">
-    <li><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2> - <%=collection.user.name%></li>
-    </div?
-  <% end %>
-</ul>
+      <div class="card <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %> mt-4">
+        <div class="card-header">
+          <h2 class="card-title <%= current_user.light_theme ? '' : 'text-light' %> text-center">Top Collections</h2>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <% @top_collections.each do |collection| %>
+              <li class="list-group-item <%= current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>">
+                <h5 class="mb-0">Collection Name: <%= link_to collection.name, collection_path(collection.id), class: "card-link #{current_user.light_theme ? '' : 'text-light'}" %></h5>
+                <p class="mb-0">Owner: <%= collection.user.name %></p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

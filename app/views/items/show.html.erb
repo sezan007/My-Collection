@@ -1,68 +1,63 @@
-<h1>Item Details</h1>
+<% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
 
-<span id="like_counts"><%= @item.likes.count%> Likes</span>
-<table>
-  <thead>
-    <tr>
-      <th><h2>Name</h2></th>
-      <th><h2>Tags</h2></th>
-      <% @collection.fields.each do |field| %>
-        <th> <%= field.name %> </th>
+<div class="card <%= theme_class %> mt-4">
+  <div class="card-header">
+    <h5 class="card-title <%= current_user.light_theme ? '' : 'text-light' %>">Item Details</h5>
+  </div>
+  <div class="card-body">
+    <span id="like_counts" class="<%= current_user.light_theme ? 'text-dark' : 'text-light' %> mb-3"><%= @item.likes.count %> Likes</span>
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Name</h6>
+        <p><%= @item.name %></p>
+      </div>
+      <div class="col-md-6">
+        <h6>Tags</h6>
+        <p><%= @item.tags %></p>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table <%= current_user.light_theme ? 'table-dark' : 'table-light' %>">
+        <thead>
+          <tr>
+            <% @collection.fields.each do |field| %>
+              <th><%= field.name %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @collection.fields.each do |field| %>
+              <% if %w[string date integer boolean].include?(field.field_type) %>
+                <% value = @item.item_values.find { |iv| iv.field_id == field.id }&.value %>
+                <td><%= field.field_type == "boolean" ? (value == "1" ? "true" : "false") : value %></td>
+              <% end %>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <% if user_signed_in? %>
+      <% if current_user.likes.exists?(item: @item) %>
+        <%= button_to 'Unlike', collection_item_likes_path(@collection, @item), method: :delete, class: "btn btn-danger" %>
+      <% else %>
+        <%= button_to 'Like', collection_item_likes_path(@collection, @item), class: "btn btn-primary" %>
       <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><h5><%= @item.name %></h5></td>
-      <td><h5><%= @item.tags %></h5></td>
-      <% @collection.fields.each do |field| %>
-        <% if %w[string date integer boolean].include?(field.field_type) %>
-            <% value=@item.item_values.find { |iv| iv.field_id == field.id }&.value %>
-            <% if field.field_type=="boolean"%>
-                <td><%= value=="1"? "true" : "false" %></td>
-            <%else%>
-                <td><%=value%></td>
-            <%end%>
-        <%end%>
-      <%end%>
-      <% if user_signed_in? %>
-        <% if current_user.likes.exists?(item: @item) %>
-          <td><%= button_to 'Unlike',collection_item_likes_path(@collection,@item),method: :delete %></td>
-        <%else%>
-          <td><%= button_to 'Like', collection_item_likes_path(@collection, @item) %></td>
-          <%end%>
-        
-      <%end%>
-    </tr>
-    <tr>
-        <td>
-          <h3>Comments</h3>
-        </td>
-
-    </tr>
-    <tr>
-        <td>
-        <%= turbo_stream_from :mycomment_list%>
-        
-          <div id ="comments">
-          
-
-          
-          <% @item.comments.each do |comment|%>
-            <%= render partial: "comments/comment", locals: { comment: comment } %>
-            <%= button_to 'delete' ,collection_item_comment_path(comment.item.collection,comment.item,comment),method: :delete if comment.user==current_user%>
-            <%= link_to 'edit',edit_collection_item_comment_path(comment.item.collection,comment.item,comment) if comment.user==current_user%>
-          <%end%>
-            
-          </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <%if user_signed_in?%>
-          <%= render partial: 'comments/form',locals: { collection:@collection,item:@item }%>
-        <%end%>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <% end %>
+    <hr>
+    <h6 class="<%= current_user.light_theme ? '' : 'text-light' %>">Comments</h6>
+    <%= turbo_stream_from :mycomment_list %>
+    <div id="comments">
+      <% @item.comments.each do |comment| %>
+        <%= render partial: "comments/comment", locals: { comment: comment } %>
+        <% if comment.user == current_user %>
+          <%= button_to 'Delete', collection_item_comment_path(comment.item.collection, comment.item, comment), method: :delete, class: "btn btn-danger btn-sm" %>
+          <%= link_to 'Edit', edit_collection_item_comment_path(comment.item.collection, comment.item, comment), class: "btn btn-primary btn-sm" %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+      <%= render partial: 'comments/form', locals: { collection: @collection, item: @item } %>
+    <% end %>
+  </div>
+</div>

@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     @mycollection=current_user.collections
   end
   def home
-    @latest_items = Item.order(created_at: :desc).limit(5)
+    @latest_items = Item.order(created_at: :desc).limit(8)
     @top_collections = Collection.includes(:items).sort_by{ |collection| collection.items.count}.reverse.first(5)
   end
   def users

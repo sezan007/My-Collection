@@ -12,6 +12,7 @@ class User < ApplicationRecord
     def set_default_role
         self.role ||= :user
     end
+    validates :name, presence: true
     has_many :collections,dependent: :destroy
     has_many :likes, dependent: :destroy
     has_many :liked_items ,through: :likes,source: :item

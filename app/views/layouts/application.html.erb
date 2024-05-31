@@ -35,6 +35,9 @@
   <body>
 
     <%= render 'pages/navbar' %>
+    <%if user_signed_in?%>
+      <p>Hi <%=current_user.name%></p>
+    <%end%>
     <%= yield %>
   </body>
 </html>

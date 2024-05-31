@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
     # @item = @collection.items.find(params[:id])
     @item=@collection.items.find(params[:id])
     # binding.b
+    @toggle_theme = current_user.light_theme
   end
   def edit
     # binding.b
