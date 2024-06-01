@@ -16,8 +16,8 @@
         <p><%= @item.tags %></p>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table <%= current_user.light_theme ? 'table-dark' : 'table-light' %>">
+    <div class="table-responsive">  
+      <table class="table <%= current_user.light_theme ? 'table-light' : 'table-dark' %>">
         <thead >
           <tr>
             <% @collection.fields.each do |field| %>
