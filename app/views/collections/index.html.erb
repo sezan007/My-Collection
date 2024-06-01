@@ -1,16 +1,30 @@
-<h1 class="mb-4">My Collections</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div >
+      <h1 class="mb-4 text-center">All Collections</h1>
 
-<% @collections.each do |collection| %>
-  <div class="card mb-4">
-  <div class="card-header">
-  <h2 class="card-title"><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2>
-  
-</div>
-    <div class="card-body">
-      
-      <p class="card-text"><%= collection.description %></p>
+      <% if user_signed_in? %>
+        <% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
+      <% else %>
+        <% theme_class = 'bg-dark text-light' %>
+      <% end %>
+
+      <% @collections.each do |collection| %>
+        <div class="card <%= theme_class %> mb-4">
+          <div class="card-header text-center">
+            <h2 class="card-title <%= theme_class.include?('bg-light') ? '' : 'text-light' %>">
+              <%= link_to collection.name, collection_path(collection.id), class: "card-link #{theme_class.include?('bg-light') ? '' : 'text-light'}" %>
+            </h2>
+          </div>
+          <div class="card-body text-center">
+            <p class="card-text">Category : <%= collection.category %></p>
+            <p class="card-text">Owner : <%= collection.user.name%></p>
+            <p class="card-text">Description :<%= collection.description %></p>
+          </div>
+        </div>
+      <% end %>
+
+    
     </div>
   </div>
-<% end %>
-
-<p class="mt-4">Find me in app/views/collections/index.html.erb</p>
+</div>

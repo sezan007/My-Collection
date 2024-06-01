@@ -1,14 +1,16 @@
-
-
-    <% @mycollection.each do |collection| %>
-        <div class="card mb-4">
-        <div class="card-header">
-        <h2 class="card-title"><%= link_to collection.name, collection_path(collection.id), class: "card-link" %></h2>
-        
+<div class="container">
+  <% @mycollection.each do |collection| %>
+    <% theme_class = user_signed_in? && current_user.light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %>
+    <div class="card mb-4 <%= theme_class %>">
+      <div class="card-header <%= theme_class %>">
+        <h2 class="card-title text-center">
+          <%= link_to collection.name, collection_path(collection.id), class: "card-link #{current_user.light_theme ? 'text-dark' : 'text-light'}" %>
+        </h2>
       </div>
-          <div class="card-body">
-            
-            <p class="card-text"><%= collection.description %></p>
-          </div>
-        </div>
-      <% end %>
+      <div class="card-body text-center">
+        <p class="card-text">Category :<%= collection.category %></p>
+        <p class="card-text">Description :<%= collection.description %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

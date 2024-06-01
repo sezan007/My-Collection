@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h1 class="text-center">Dashboard</h1>
+    <div class="col-md-19 ">
+      
 
       <% if user_signed_in? %>
         <% theme_class = current_user.light_theme ? 'bg-light' : 'bg-dark text-light' %>
@@ -9,11 +9,11 @@
         <% theme_class = 'bg-light' %>
       <% end %>
 
-      <div class="card <%= theme_class  %> mt-4">
+      <div class="card <%= theme_class %> mt-4">
         <div class="card-header">
           <h2 class="card-title <%= theme_class.include?('bg-light') ? '' : 'text-light' %> text-center">Latest Items</h2>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
           <ul class="list-group list-group-flush">
             <% @latest_items.each do |item| %>
               <li class="list-group-item <%= theme_class.include?('bg-light') ? 'bg-light' : 'bg-dark text-light' %>">
@@ -30,7 +30,7 @@
         <div class="card-header">
           <h2 class="card-title <%= theme_class.include?('bg-light') ? '' : 'text-light' %> text-center">Top Collections</h2>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
           <ul class="list-group list-group-flush">
             <% @top_collections.each do |collection| %>
               <li class="list-group-item <%= theme_class.include?('bg-light') ? 'bg-light' : 'bg-dark text-light' %>">
