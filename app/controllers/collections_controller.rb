@@ -16,18 +16,18 @@ class CollectionsController < ApplicationController
   def new
     @collection = Collection.new
 
-    3.times do 
-      @field=@collection.fields.build
-      @field.field_type="int"
-    end
-    3.times do 
-      @field=@collection.fields.build
-      @field.field_type="string"
-    end
-    3.times do 
-      @field=@collection.fields.build
-      @field.field_type="date"
-    end
+    # 3.times do 
+    #   @field=@collection.fields.build
+    #   @field.field_type="int"
+    # end
+    # 3.times do 
+    #   @field=@collection.fields.build
+    #   @field.field_type="string"
+    # end
+    # 3.times do 
+    #   @field=@collection.fields.build
+    #   @field.field_type="date"
+    # end
 
 
     

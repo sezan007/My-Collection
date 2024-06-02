@@ -2,7 +2,7 @@
   <%= f.label :name%>
   <%= f.text_field :name %>
   <%= f.label :field_type %>
-  <%=f.select :field_type,Field::FIELD_TYPES.map {|type| [type.humanize,type]}%>
+  <%=form.select :field_type,Field::FIELD_TYPES.map {|type| [type.humanize,type]}%>
   <button type="button" data-action="nested-form#remove">Remove Field</button>
   <%= f.hidden_field :_destroy %>
 </div>

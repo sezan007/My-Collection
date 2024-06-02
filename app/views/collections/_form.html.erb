@@ -1,5 +1,7 @@
 
-<%= form_with(model: @collection, local: true) do |form| %>
+<%= form_with(model: @collection,data: {
+  controller: "nested-form",nested_form_wrapper_selector_value: '.nested-form-wrapper'
+}, local: true) do |form| %>
   <% if @collection.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
@@ -25,28 +27,23 @@
       <%= form.label :description %>
       <%= form.rich_text_area :description %>
     </ul>
-    <table class='table'>
-    <thead>
-      <tr>
-        <th>Destroy Field</th>
-        <th>Custom Field Name</th>
-        <th>Custom Field Type</th>
-      </tr>
-    </thead>
-    <tbody class='fields'>
-      <%= form.fields_for :fields do |builder| %>
-        <%= render 'field_fields', form: builder %>
-      <% end %>
-    </tbody>
-  </table>
+    
+
+    <template data-nested-form-target="template">
+    <%= form.fields_for :fields, Field.new, child_index: "NEW_RECORD" do |field| %>
+      <%= render "collections/field_fields", f: field %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :fields do |field| %>
+    <%= render "collections/field_fields", f: field %>
+  <% end %>
+  <div data-nested-form-target="target"></div>
+  <button type="button" data-action="nested-form#add">Add Field</button>
+
   
-    <div id="new_fields">
-    </div>
-    <%= turbo_stream_from :custom_field %>
-    <p>I was heh</p>
         
-    <div id="custom_fields"></div>
-  </div>
+
   
   <div>
     <%= form.submit %>

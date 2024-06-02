@@ -11,6 +11,7 @@
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
     "sass": "^1.76.0",
+    "stimulus-rails-nested-form": "^4.1.0",
     "trix": "^2.1.1"
   },
   "scripts": {
