@@ -5,11 +5,15 @@ export default class extends Controller {
   static targets = ["parent", "child","child01"];
 
   connect() {
+    console.log('Stimulus controller connected');
+    console.log('Parent target:', this.parentTarget);
+    console.log('Child targets:', this.childTargets);
+    console.log('Child01 targets:', this.child01Targets);
 
     // this.parentTarget.hidden = true;
     this.childTargets.map(x => x.checked = false)
     this.child01Targets.map(y => y.checked = false)
-    // this.child01Targets.map(y => y.hidden = true)
+    this.child01Targets.map(y => y.hidden = true)
   }
   toggleChildren()
   {
