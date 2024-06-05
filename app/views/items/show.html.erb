@@ -8,12 +8,12 @@
     <span id="like_counts" class="<%= current_user.light_theme ? 'text-dark' : 'text-light' %> mb-3"><%= @item.likes.count %> Likes</span>
     <div class="row">
       <div class="col-md-6">
-        <h6>Name</h6>
-        <p><%= @item.name %></p>
+        <h6>Name : <%= @item.name %></h6>
+        <p></p>
       </div>
       <div class="col-md-6">
-        <h6>Tags</h6>
-        <p><%= @item.tags %></p>
+        <h6>Tags : <%= @item.tags %></h6>
+        <p></p>
       </div>
     </div>
     <div class="table-responsive">  

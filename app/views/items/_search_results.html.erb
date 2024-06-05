@@ -1,0 +1,8 @@
+<%#=items.count%>
+<% theme_class = light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %>
+
+<% items.each do |item| %>
+  <div class="p-3 <%= theme_class %>">
+    <%= link_to highlight(item.name, params[:name_search]), collection_item_path(item.collection.id, item.id), class: "text-decoration-none #{light_theme ? 'text-dark' : 'text-light'}" %>
+  </div>
+<% end %>

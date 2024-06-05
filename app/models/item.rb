@@ -8,7 +8,10 @@ class Item<ApplicationRecord
     accepts_nested_attributes_for :item_values, allow_destroy: true
     validates :name,presence:true
     validate :tags_array_non_empty
-
+    scope :filter_by_name, ->(name){where('name ILIKE ?',"%#{name}%")}
+    scope :filter_by_comment, ->(comment) {
+      joins(:comments).where('comments.content LIKE ?', "%#{comment}%")
+    }
     private
   
     def tags_array_non_empty

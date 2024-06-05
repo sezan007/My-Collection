@@ -7,6 +7,31 @@ class ItemsController < ApplicationController
     # binding.b
     # @toggle_theme = current_user.light_theme
   end
+  def search
+    # binding.b
+    # @light_theme = true 
+    if user_signed_in?
+      @light_theme = current_user.light_theme
+    else
+      @light_theme=true
+    end
+    if params[:name_search].present?
+      @itemResult=Item.filter_by_name(params[:name_search])
+      if !@itemResult.present?
+        # binding.b
+        @itemResult=Item.includes(:comments).filter_by_comment(params[:name_search])
+      end
+    else
+      @itemResult=[]
+    end
+    
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("search_results",
+                              partial: "items/search_results",locals: {items:@itemResult,light_theme:@light_theme})
+      end
+    end
+  end
   def edit
     # binding.b
     @collection=Collection.find(params[:collection_id])

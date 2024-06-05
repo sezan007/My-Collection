@@ -30,6 +30,11 @@ Rails.application.routes.draw do
     end
     resources :fields, only: [:destroy,:new]
   end
+  resources :items do
+    collection do
+      post :search
+    end
+  end
   
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

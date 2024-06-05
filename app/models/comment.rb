@@ -1,6 +1,7 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :item
+  # scope :filter_by_comment, ->(content){where('content ILIKE ?',"%#{content}%")}
   after_create_commit do
     broadcast_append_to :mycomment_list,target:'comments' ,partial: 'comments/comment',locals:{comment:self}
   end

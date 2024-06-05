@@ -11,7 +11,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-<%=theme_class%> bg-<%=theme_class%>">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Collection Manager</a>
+  <div class="navbar-brand"><%= render 'items/search_form'%></div>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -54,15 +55,23 @@
                 <li class="nav-item">
                 <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 
                 </li>    
-            <%end%>  
+            <%end%> 
+            <li class="nav-item">
+
+            
+            
+            </li>
+
         
         <%end%>
     
         
       </ul>
+      
     </div>
   </div>
-  <div class="ml-auto"> <!-- This div aligns content to the right -->
+  
+  <div class="ml-auto">
   <% if user_signed_in? %>
     <%= form_tag(destroy_user_session_path, method: :delete) do %>
         <%= submit_tag "Sign out", class: "btn btn-danger" %>
@@ -71,3 +80,4 @@
 
 </div>
 </nav>
+<div id="search_results"> </div>
