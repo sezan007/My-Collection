@@ -1,17 +1,20 @@
-<h1>Collections#show</h1>
-<%= link_to "Edit", edit_collection_path(@collection) if user_signed_in? && (@collection.user.id==current_user.id || current_user.admin?) %>
 
+<%= link_to "Edit", edit_collection_path(@collection), class: "btn btn-warning mb-3" if user_signed_in? && (@collection.user.id == current_user.id || current_user.admin?) %>
 
-<p>Find me in app/views/collections/show.html.erb</p>
-<h1>Name :<%= @collection.name %></h1>
-<p>Description :<%= @collection.description %></p>
-<p>Category :<%= @collection.category %></p>
-<p>Owner :<%= @collection.user.name %></p>
+<% theme_class = @light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %>
+<% table_class = @light_theme ? 'table-light' : 'table-dark' %>
+
+<div class="text-center mb-3 <%= theme_class %> p-3 rounded">
+  <h1>Name: <%= @collection.name %></h1>
+  <p>Description: <%= @collection.description %></p>
+  <p>Category: <%= @collection.category %></p>
+  <p>Owner: <%= @collection.user.name %></p>
+</div>
+
 <h2>Items</h2>
-<table>
+<table class="table table-striped <%= table_class %>">
   <thead>
     <tr>
-
       <th>Name</th>
       <th>Tags</th>
       <% @collection.fields.each do |field| %>
@@ -19,41 +22,38 @@
           <th><%= field.name %></th>
         <% end %>
       <% end %>
-      <%if user_signed_in? && (@collection.user.id==current_user.id || current_user.admin?)%>
-        <th> Delete </th>
-        <th> Update </th>
-      <%end%>
-
+      <% if user_signed_in? && (@collection.user.id == current_user.id || current_user.admin?) %>
+        <th>Delete</th>
+        <th>Update</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
-
-  
     <% @items.each do |item| %>
-      <tr>
-        <td><%= link_to item.name,collection_item_path(@collection.id,item.id) %></td>
-        
+      <tr class="<%= theme_class %>">
+        <td><%= link_to item.name, collection_item_path(@collection.id, item.id), class: "text-decoration-none #{theme_class}" %></td>
         <td><%= item.tags %></td>
         <% @collection.fields.each do |field| %>
           <% if %w[string date integer boolean].include?(field.field_type) %>
-          <% value=item.item_values.find { |iv| iv.field_id == field.id }&.value %>
-            <% if field.field_type=="boolean"%>
-                
-                <td><%= value=="1"? "true" : "false" %></td>
-            <%else%>
-                <td><%=value%></td>
-            <%end%>
+            <% value = item.item_values.find { |iv| iv.field_id == field.id }&.value %>
+            <% if field.field_type == "boolean" %>
+              <td><%= value == "1" ? "true" : "false" %></td>
+            <% else %>
+              <td><%= value %></td>
+            <% end %>
           <% end %>
-          
         <% end %>
-        <td>
-        <%= button_to "Delete", collection_item_path(@collection, item), method: :delete, data: { confirm: "Are you sure you want to delete this item?" }, class: "btn btn-danger" if user_signed_in? && (@collection.user.id==current_user.id || current_user.admin?) %>
-        </td>
-        <td><%= link_to "Edit", edit_collection_item_path(@collection, item)  if user_signed_in? && (@collection.user.id==current_user.id || current_user.admin?)%></td>
-        
+        <% if user_signed_in? && (@collection.user.id == current_user.id || current_user.admin?) %>
+          <td>
+            <%= button_to "Delete", collection_item_path(@collection, item), method: :delete, data: { confirm: "Are you sure you want to delete this item?" }, class: "btn btn-danger btn-sm" %>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_collection_item_path(@collection, item), class: "btn btn-primary btn-sm" %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
-  
 </table>
-<%= link_to 'add item', new_collection_item_path(@collection), class: 'btn btn-primary' if user_signed_in? && (@collection.user.id==current_user.id || current_user.admin?)%>
+
+<%= link_to 'Add Item', new_collection_item_path(@collection), class: 'btn btn-primary mt-3' if user_signed_in? && (@collection.user.id == current_user.id || current_user.admin?) %>

@@ -1,25 +1,37 @@
 <%= form_with(model: [@collection, @item], local: true) do |form| %>
-    <%= form.text_field :name %>
-    <%= form.text_field :tags, multiple: true %>
-  
-    <% @collection.fields.each do |field| %>
-      <%= form.fields_for :item_values, @item.item_values.find { field.id } do |ff| %>
-        <%= ff.hidden_field :field_id, value: field.id %>
+  <div class="mb-3 <%= @light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %> p-3 rounded">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 <%= @light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %> p-3 rounded">
+    <%= form.label :tags, class: "form-label" %>
+    <%= form.text_field :tags, multiple: true, class: "form-control" %>
+  </div>
+
+  <% @collection.fields.each do |field| %>
+    <%= form.fields_for :item_values, @item.item_values.find_by(field_id: field.id) || @item.item_values.build(field_id: field.id) do |ff| %>
+      <%= ff.hidden_field :field_id, value: field.id %>
+      <div class="mb-3 <%= @light_theme ? 'bg-light text-dark' : 'bg-dark text-light' %> p-3 rounded">
+        <%= ff.label field.name, class: "form-label" %>
         <% case field.field_type %>
-        <% when 'string' %>
-          <%= ff.text_field :value %>
-        <% when 'text' %>
-          <%= ff.text_area :value %>
-        <% when 'integer' %>
-          <%= ff.number_field :value %>
-        <% when 'boolean' %>
-          <%= ff.check_box :value %>
-        <% when 'date' %>
-          <%= ff.date_field :value %>
+          <% when 'string' %>
+            <%= ff.text_field :value, class: "form-control" %>
+          <% when 'text' %>
+            <%= ff.text_area :value, class: "form-control" %>
+          <% when 'integer' %>
+            <%= ff.number_field :value, class: "form-control" %>
+          <% when 'boolean' %>
+            <div class="form-check">
+              <%= ff.check_box :value, class: "form-check-input" %>
+              <%= ff.label field.name, class: "form-check-label" %>
+            </div>
+          <% when 'date' %>
+            <%= ff.date_field :value, class: "form-control" %>
         <% end %>
-      <% end %>
+      </div>
     <% end %>
-  
-    <%= form.submit %>
   <% end %>
-  
+
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+<% end %>

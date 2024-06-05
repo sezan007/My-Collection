@@ -64,6 +64,11 @@ class ItemsController < ApplicationController
   end
 
   def new
+    if user_signed_in?
+      @light_theme=current_user.light_theme
+    else
+      @light_theme=true
+    end
     @collection=Collection.find(params[:collection_id])
     @item=@collection.items.new
     @collection.fields.each do |field|

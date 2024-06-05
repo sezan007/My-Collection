@@ -7,6 +7,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    if user_signed_in?
+      @light_theme=current_user.light_theme
+    else
+      @light_theme=true
+    end
+    
     @collection = Collection.find(params[:id])
     @items = @collection.items.includes(:item_values)
   rescue ActiveRecord::RecordNotFound
@@ -14,6 +20,11 @@ class CollectionsController < ApplicationController
   end
 
   def new
+    if user_signed_in?
+      @light_theme=current_user.light_theme
+    else
+      @light_theme=true
+    end
     @collection = Collection.new
 
     # 3.times do 
@@ -57,6 +68,11 @@ class CollectionsController < ApplicationController
   end
 
   def edit
+    if user_signed_in?
+      @light_theme=current_user.light_theme
+    else
+      @light_theme=true
+    end
   end
 
   def destroy

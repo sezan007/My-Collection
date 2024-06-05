@@ -1,9 +1,8 @@
-
-<%= form_with(model: @collection,data: {
-  controller: "nested-form",nested_form_wrapper_selector_value: '.nested-form-wrapper'
+<%= form_with(model: @collection, data: {
+  controller: "nested-form", nested_form_wrapper_selector_value: '.nested-form-wrapper'
 }, local: true) do |form| %>
   <% if @collection.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
       <ul>
         <% @collection.errors.each do |error| %>
@@ -13,23 +12,23 @@
     </div>
   <% end %>
 
-  <div>
-    <ul>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </ul>
-    <ul>
-    <%= form.label :category %>
-    <%=form.select :category,Collection::VALID_CATEGORIES.map {|type| [type.humanize,type]}%>
-    </ul>
-    
-    <ul>
-      <%= form.label :description %>
-      <%= form.rich_text_area :description %>
-    </ul>
-    
-
-    <template data-nested-form-target="template">
+  <div class="mb-3 <%= @light_theme ? 'bg-light' : 'bg-dark text-light' %> p-3 rounded">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3 <%= @light_theme ? 'bg-light' : 'bg-dark text-light' %> p-3 rounded">
+    <%= form.label :category, class: "form-label" %>
+    <%= form.select :category, Collection::VALID_CATEGORIES.map { |type| [type.humanize, type] }, class: "form-select" %>
+  </div>
+  
+  <% description_label_class = @light_theme ? 'form-label text-dark' : 'form-label text-light' %>
+  <div class="mb-3 <%= @light_theme ? 'bg-light' : 'bg-dark' %> p-3 rounded">
+    <%= form.label :description, class: description_label_class %>
+    <%= form.rich_text_area :description, class: "form-control" %>
+  </div>
+  
+  <template data-nested-form-target="template">
     <%= form.fields_for :fields, Field.new, child_index: "NEW_RECORD" do |field| %>
       <%= render "collections/field_fields", f: field %>
     <% end %>
@@ -38,14 +37,11 @@
   <%= form.fields_for :fields do |field| %>
     <%= render "collections/field_fields", f: field %>
   <% end %>
+  
   <div data-nested-form-target="target"></div>
-  <button type="button" data-action="nested-form#add">Add Field</button>
-
+  <button type="button" data-action="nested-form#add" class="btn btn-primary">Add Field</button>
   
-        
-
-  
-  <div>
-    <%= form.submit %>
+  <div class="mt-3 <%= @light_theme ? 'text-dark' : 'text-light' %>">
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

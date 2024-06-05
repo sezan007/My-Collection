@@ -1,8 +1,11 @@
-<div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
-  <%= f.label :name%>
-  <%= f.text_field :name %>
-  <%= f.label :field_type %>
-  <%=f.select :field_type,Field::FIELD_TYPES.map {|type| [type.humanize,type]}%>
-  <button type="button" data-action="nested-form#remove">Remove Field</button>
+<div class="nested-form-wrapper p-3 <%= @light_theme ? 'bg-light' : 'bg-dark text-light' %>" data-new-record="<%= f.object.new_record? %>">
+  <%= f.label :name, class: "form-label" %>
+  <%= f.text_field :name, class: "form-control" %>
+  
+  <%= f.label :field_type, class: "form-label" %>
+  <%= f.select :field_type, Field::FIELD_TYPES.map {|type| [type.humanize, type]}, class: "form-select" %>
+  
+  <button type="button" data-action="nested-form#remove" class="btn btn-danger">Remove Field</button>
+  
   <%= f.hidden_field :_destroy %>
 </div>
