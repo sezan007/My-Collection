@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  summary: MyString
+  priority: MyString
+  user: one
+  collection: one
+  link: MyString
+  status: MyString
+  jira_key: MyString
+
+two:
+  summary: MyString
+  priority: MyString
+  user: two
+  collection: two
+  link: MyString
+  status: MyString
+  jira_key: MyString

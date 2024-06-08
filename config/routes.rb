@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'tickets/new'
+  get 'tickets/create'
+  get 'tickets/index'
 
   get 'collections/index'
   get 'collections/show'
@@ -35,6 +38,9 @@ Rails.application.routes.draw do
       post :search
     end
   end
+  resources :tickets, only: [:new, :create, :index]
+  # Add a route for the help link
+  get 'help', to: 'tickets#new'
   
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

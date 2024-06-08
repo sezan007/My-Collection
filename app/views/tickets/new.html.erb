@@ -1,0 +1,12 @@
+<%= form_with model: @ticket, local: true do |form| %>
+    <%= form.label :summary %>
+    <%= form.text_field :summary %>
+  
+    <%= form.label :priority %>
+    <%= form.select :priority, ['High', 'Average', 'Low'] %>
+  
+    <%= form.hidden_field :link, value: request.referrer %>
+  
+    <%= form.submit "Create Support Ticket" %>
+  <% end %>
+  
