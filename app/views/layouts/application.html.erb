@@ -40,5 +40,8 @@
       <p>Hi <%=current_user.name%></p>
     <%end%>
     <%= yield %>
+    <footer>
+    <%= link_to 'Create support ticket', new_ticket_path %>
+  </footer>
   </body>
 </html>
