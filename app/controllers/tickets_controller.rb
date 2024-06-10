@@ -75,7 +75,7 @@ class TicketsController < ApplicationController
       }
     })
     issue
-    binding.b
+    # binding.b
   rescue StandardError => e
     Rails.logger.error "Jira ticket creation failed: #{e.message}"
     nil
