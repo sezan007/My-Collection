@@ -2,11 +2,11 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @ticket = Ticket.new
+    @ticket = current_user.tickets.build
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = current_user.tickets.build(ticket_params)
     @ticket.status = 'Opened'
     jira_user = ensure_jira_user_exists(current_user.email, current_user.name)
     # @ticket.collection = current_user.collection # assuming a user has a collection association
@@ -27,7 +27,8 @@ class TicketsController < ApplicationController
   end
 
   def index
-    @tickets =Ticket.all
+    @pagy, @tickets = pagy(current_user.tickets.order(created_at: :desc), items: 5)
+    # @pagy, @records = pagy(Product.all)
   end
 
   private
@@ -43,13 +44,16 @@ class TicketsController < ApplicationController
       users.first
     else
       new_user = {
-        "emailAddress" => "#{email}",
-        "displayName" => "#{display_name}",
-        "products" => ["jira-software" ] # Adjust as needed
+        "name" => display_name,
+        "password" => "secure_password",
+        "emailAddress" => email,
+        "displayName" => display_name,
+        "products" => ["jira-software"]
       }
 
-      response = JIRA_CLIENT.post('/rest/api/3/user', new_user.to_json)
+      response = JIRA_CLIENT.post('/rest/api/2/user', new_user.to_json, 'Content-Type' => 'application/json')
       JSON.parse(response.body)
+      # binding.b
     end
   rescue JIRA::HTTPError => e
     Rails.logger.error "Jira user creation failed: #{e.response.body}"
