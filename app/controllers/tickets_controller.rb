@@ -4,6 +4,14 @@ class TicketsController < ApplicationController
   def new
     @ticket = current_user.tickets.build
   end
+  def destroy
+    if @ticket.user == current_user
+      @ticket.destroy
+      redirect_to tickets_path, notice: 'Ticket was successfully deleted.'
+    else
+      redirect_to tickets_path, alert: 'You are not authorized to delete this ticket.'
+    end
+  end
 
   def create
     @ticket = current_user.tickets.build(ticket_params)

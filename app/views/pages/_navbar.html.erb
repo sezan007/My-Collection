@@ -37,6 +37,7 @@
 
   
         <% else %>
+          
         
             <li class="nav-item">
             <%=link_to "My Collections", mycollection_path, class: "nav-link"  %> 
@@ -51,6 +52,9 @@
             <li class="nav-item">
             <%=link_to "New Collection",new_collection_path, class: "nav-link"  %>
             </li>
+            <li class="nav-item">
+            <%=link_to "My Tickets", tickets_index_path, class: "nav-link"  %> 
+            </li>  
             <%if current_user.admin? %>
                 <li class="nav-item">
                 <%=link_to "Admin Panel", admins_admin_path, class: "nav-link"  %> 

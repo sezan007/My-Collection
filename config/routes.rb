@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       post :search
     end
   end
-  resources :tickets, only: [:new, :create, :index]
+  resources :tickets, only: [:new, :create, :index, :destroy]
   # Add a route for the help link
   get 'help', to: 'tickets#new'
   
