@@ -39,8 +39,19 @@ Rails.application.routes.draw do
     end
   end
   resources :tickets, only: [:new, :create, :index, :destroy]
+  resources :users, only: [:show]
   # Add a route for the help link
   get 'help', to: 'tickets#new'
+  resources :users do
+    post :generate_api_token, on: :member
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :collections, only: [:index]
+    end
+  end
+  
+  
   
   # get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
+    def generate_api_token
+      current_user.regenerate_api_token
+      redirect_to user_path, notice: 'API Token generated'
+    end
     def index
         @users = User.order(:id)
+    end
+    def show
     end
     def bulk_delete
         if !params[:user_ids].present?
@@ -55,6 +61,10 @@ class UsersController < ApplicationController
 
     end
     def user_params
-    params.require(:user).permit(:name, :email, :status)
+      params.require(:user).permit(:name, :email, :status)
+    end
+    def generate_api_token
+      current_user.regenerate_api_token
+      redirect_to current_user, notice: 'API Token generated'
     end
 end

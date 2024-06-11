@@ -18,5 +18,6 @@ class User < ApplicationRecord
     has_many :liked_items ,through: :likes,source: :item
     has_many :comments
     has_many :tickets
+    has_secure_token :api_token
   end
   

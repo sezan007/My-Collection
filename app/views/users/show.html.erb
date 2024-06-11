@@ -1,0 +1,3 @@
+<p>Hello User</p>
+<p>Your API Token: <%= current_user.api_token %></p>
+<%= button_to 'Generate API Token', generate_api_token_user_path(current_user), method: :post %>
